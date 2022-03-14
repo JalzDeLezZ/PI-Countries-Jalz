@@ -1,0 +1,31 @@
+.cMain-body{
+    background-color:rgba(0, 0, 0, 0.6);
+    width: 94vw;
+    height: 79vh;
+    margin-top: 3vh;
+
+    .Home_body-head{
+        height: 12%;
+        background-color: rgba(0, 0, 0, 0.12);
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px;
+
+        .hbh1-filters{
+            width: 100%;
+            display: flex;
+        }
+        
+        .hbh2-pagination{
+            display: flex;
+        }
+    }
+    .home_containerCards{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 10px;
+        padding: 10px 10px;
+    }
+}

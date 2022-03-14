@@ -1,5 +1,5 @@
 
-import { CREATE_HOUSE, DELETE_HOUSE, GET_ALL_HOUSES, GET_HOUSE } from "../action";
+import { GET_ALL_COUNTRIES } from "../action";
 
 
 const initialState = {

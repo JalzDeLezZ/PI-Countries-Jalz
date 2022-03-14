@@ -1,0 +1,77 @@
+
+.cmpHeader { 
+    width: 94vw;
+    height: 13vh;
+    background-color:rgba(0, 0, 0, 0.6);
+    margin-top: 15px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 19px 19px 0px 0px;
+    padding: 0 30px;
+  }
+    
+  .cmpHeader .header-logo img {
+    width: 190px;
+    cursor: pointer;
+  }
+  
+  .cmpHeader .header-input {
+    width: 100%;
+     
+  }
+  
+  .cmpHeader .header-input-container {
+    width: 79%;
+    border-radius: 100px;
+    border: 1px solid #dfe1e5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .cmpHeader .header-input .header-input-container input {
+    border-radius: 10%;
+    width: 100%;
+    border: none;
+    outline: none;
+    height: 40px;
+    padding: 0 16px;
+    background: transparent;
+    color: white;
+  }
+  
+  .cmpHeader .header-input .header-input-container input::placeholder { color: rgba(255, 255, 255, 0.568); font-weight: bold; }
+
+
+  .cmpHeader .header-input-container:hover {
+    box-shadow: 0 1px 6px 0 #ffffff47;
+    border-color: #dfe1e500;
+  }
+  .search-icon {
+    background-image: url("https://i.ibb.co/1XPF0Vs/earth-globe-with-continents-maps.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  
+    margin-left: 15px;
+    filter: invert(100%);
+    width: 18px;
+    height: 18px;
+  }
+  
+  .cmpHeader .header-input .micro-icon {
+    background-image: url("https://i.ibb.co/5Rxd8d1/loupe.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    margin-right: 15px;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    width: 18px;
+    height: 18px;
+    filter: invert(100%);
+    cursor: pointer;
+  }

@@ -5,11 +5,6 @@ import styled from 'styled-components';
 
 import { Link } from 'react-router-dom';
 
-
-const Button = styled.a`
-  color: blue;
-`
-
 const LandingPage = () => { 
 
   const [isLoading, setIsLoading] = useState(true);
@@ -25,7 +20,7 @@ const LandingPage = () => {
         {
           isLoading ? <Loading/> : 
           <figure>  
-            {/* <Button className="btn-grad">Ingresar</Button> */}
+            
             <Link to="home"><button className="btn-grad">Ingresar</button> </Link>
           </figure>
         }
