@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import Loading from '../components/Loading' 
-import '../styles/pages/landingPage.scss'
-import styled from 'styled-components';
+import '../styles/pages/landingPage.scss' 
 
 import { Link } from 'react-router-dom';
 
@@ -21,7 +20,7 @@ const LandingPage = () => {
           isLoading ? <Loading/> : 
           <figure>  
             
-            <Link to="home"><button className="btn-grad">Ingresar</button> </Link>
+            <Link to="/home"><button className="btn-grad">Ingresar</button> </Link>
           </figure>
         }
        

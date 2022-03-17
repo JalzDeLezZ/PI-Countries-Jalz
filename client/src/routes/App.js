@@ -4,7 +4,7 @@ import {Routes, Route } from 'react-router-dom';
 import '../styles/App.css';
 
 import Country from '../pages/Home.jsx'
-import TActivity from '../pages/Home.jsx'
+import TActivity from '../pages/TActivity.jsx'
 import Home from '../pages/Home.jsx'
 import LandingPage from '../pages/LandingPage.jsx'
 

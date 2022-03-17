@@ -1,3 +1,47 @@
 .component-card{
-    
+    height: 99px;
+    background-color: rgba(126, 126, 126, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    padding: 30px 10px;
+    color: rgba(255, 255, 255, 0.74);
+    backdrop-filter: blur(4px);  
+
+    .card-figure{
+        width: 70px;
+        height: 40px;
+        margin: 10px 0px;
+        text-align: center;
+        padding: 5px 10px;
+        img{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+    }    
 }
+
+/*/ Tarjeta * /
+  .target .target_body .temperature{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50% 50%;
+  }
+  //  Posicionamiento en grids * /
+  .target .target_body .temperature .c1{
+    grid-area: 1 / 1 
+  }
+  
+  .target .target_body .temperature .c2{
+    grid-area: 2 / 1 
+  }
+  
+  .target .target_body .temperature .c3{
+    grid-area: 1 / 2 
+  }
+  
+  .target .target_body .temperature .c4{
+    grid-area: 2 / 2 
+  }
+*/

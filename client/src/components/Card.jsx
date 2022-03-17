@@ -7,14 +7,18 @@ const Card = (props) => {
     return (
         <target className="component-card">
             
-            <h3>{pNombre}</h3>
-            <h5>{pContinente}</h5>
             <figure className="card-figure">
                 <img src={pImagen} alt={pNombre}/>
+                <h6>{pId}</h6>
             </figure>
-            <h6>{pId}</h6>
+            
+            <assets>
+                <h3>{pNombre}</h3>
+                <h5>{pContinente}</h5>
+            </assets>
         </target>
     )
 }
 
 export default Card
+
