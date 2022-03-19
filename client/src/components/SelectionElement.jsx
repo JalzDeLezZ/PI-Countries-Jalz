@@ -1,8 +1,5 @@
-import React, { useState } from 'react'
-import styled from 'styled-components'
-import {useDispatch, useSelector} from 'react-redux'
-import {filterCountriesByContinent} from '../redux/action'
-
+import React from 'react'
+import styled from 'styled-components' 
 const ContSelect = styled.select`
     color: #fff;
     margin: 5px;
@@ -17,23 +14,13 @@ const ContSelect = styled.select`
 
 const Selection = (props) => {
   const {pName,pMUpdateState, pOptions} = props;
-
-  const dispatch = useDispatch();
-
-
-  const [continents , setContinents] = useState("")
-
-
-  const mOnChange = (e) => {
-    dispatch( filterCountriesByContinent (e.target.value))
-  }
+ 
 
   return (
     <ContSelect
             id={"i"+pName}
             name={pName}
-            onChange={mOnChange}
-            value={continents}
+            onChange={pMUpdateState}
           >
             {
               pOptions.map( (data, index) => (

@@ -1,9 +1,10 @@
-
-import { GET_ALL_COUNTRIES, GET_COUNTRI_BY_NAME, FILTER_BY_CONTINENT, ORDER_ASC_OR_DSC } from "../action";
+import { GET_ACTIVITIES,GET_ALL_COUNTRIES, GET_COUNTRI_BY_NAME, GET_COUNTRI_BY_ID, FILTER_BY_CONTINENT, ORDER_ASC_OR_DSC } from "../action";
 
 const initialState = {
     allCountries: [],
     countries: [],
+    oCountry: {},
+    aActitivities: []
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -26,46 +27,54 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 countries: payload
             }
-        
+
+        case GET_COUNTRI_BY_ID:
+            return {
+                ...state,
+                oCountry: payload
+            }
+        case GET_ACTIVITIES:
+            return {
+                ...state,
+                aActitivities: payload
+            }
         case FILTER_BY_CONTINENT:
 
-            const continentFiltered = action.payload === 'ALL' ? allCountries
-            : allCountries.filter(pI => pI.continent === action.payload);
-
+            const continentFiltered = filter_continent === 'ALL' ? allCountries
+            : allCountries.filter(pI => pI.continent === filter_continent);
             return { 
                 ...state,
                 countries: continentFiltered
             }
-        case ORDER_ASC_OR_DSC:
-            switch (order) {
-                case "ASC":
-                    const aTemp = countries.sort( ( a , b ) => {
-                        if (a.name.toLowerCase() < b.name.toLowerCase()) return -1
-                        if (a.name.toLowerCase() > b.name.toLowerCase()) return 1
-                        return 0
-                    });
-                    console.log(aTemp)
 
-                    
-                    return { 
-                        ...state,
-                        countries: aTemp
-                    }
-                
+        case ORDER_ASC_OR_DSC:
+            let aTemp;
+            switch (order) { 
+                case "ASC":
+                aTemp = countries.sort( ( a , b ) => {
+                    if (a.name.toLowerCase() < b.name.toLowerCase()) return -1
+                    if (a.name.toLowerCase() > b.name.toLowerCase()) return 1
+                    return 0
+                });
+                console.log(aTemp)
+
+                return { 
+                    ...state,
+                    countries: [...aTemp]
+                }
+
                 case "DSC":
-                    console.log("DDDDD")
-                    const aTemp2 = countries.sort( ( a , b ) => {
+                    aTemp= countries.sort( ( a , b ) => {
                         if (a.name.toLowerCase() > b.name.toLowerCase()) return -1
                         if (a.name.toLowerCase() < b.name.toLowerCase()) return 1
                         return 0
                     });
                     return { 
                         ...state,
-                        countries: aTemp2
+                        countries: [...aTemp]
                     }
                 
                 default: return {...state}
-                
                 }
         default: return {...state}
     };

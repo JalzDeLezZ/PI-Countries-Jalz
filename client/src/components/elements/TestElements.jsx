@@ -1,24 +1,68 @@
+import React from 'react' 
 import styled,{css} from "styled-components";
 
-const colores = {
-    borde: "#0075ff",
-    error: "#bb2929",
-    exito: "#1ed12d"
+const RButtonGroup = (props) => {
+  const {pId, pLabel,pValue ,pName, pMOnClickRbt} = props
+   
+  return (
+    <ContChecks>
+        <Label htmlFor={pId}>{pLabel}</Label>
+        <input 
+            type="radio" id={pId} 
+            onClick={pMOnClickRbt}
+            value={pValue} 
+            name={pName} 
+        />
+    </ContChecks>
+  )
 }
 
-const MyLabel = styled.label`
-    display: block;
-    font-weight: 700;
-    padding: 10px;
-    min-height: 40px;
-    cursor: pointer;
+const CSelect = (props) => {
+  const {pName,pMUpdateState, pAOptions} = props;
 
-    ${props => props.pStyle === 'false' && css`
-        color: ${colores.error};
-    `}
-`
-
-const MyInput = styled.input`
+  return (
+    <ContSelect
+        id={"i"+pName}
+        name={pName}
+        onChange={pMUpdateState}
+    >
+        {
+        pAOptions.map( (data, index) => (
+            <option 
+            key={index} 
+            value={data.value}
+            > 
+            {data.texto} </option>
+        ))
+        } 
+    </ContSelect>
+  )
+}
+ 
+export {
+    RButtonGroup,
+    CSelect,
+    MensajeExito,
+    MessageError,
+    Formulario,
+    Label, 
+    GrupoInput,
+    Input,
+    LeyendaError ,
+    ContenedorBotonCentrado,
+    Boton
+}
+ 
+//================================STYLES===============================
+const ContChecks = styled.div`
+    margin: 0 7px;
+    display: flex;
+    align-items: center;
+    label{
+        margin-right: 7px;
+    }
+` 
+/* const Select = styled.select`
     width: 100%;
     background: #fff;
     border-radius: 3px;
@@ -30,34 +74,29 @@ const MyInput = styled.input`
     outline: none;
     &:focus {
         box-shadow: 3px 0px 40px rgba(163,163,163, 0-4);
-        border : 3px solid ${colores.borde};
+        border : 3px solid red
     }
-    ${props => props.pStyle === 'true' && css`
-        border: 3px solid transparent;
-    `}
-    
-    ${props => props.pStyle === 'false' && css`
-        border: 3px solid ${colores.error} !important;
-    `}
+` */
+
+const ContSelect = styled.select`
+    color: black;
+    height: 45px;
+    width: 100%;
+    outline: none;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    font-size: 0.75em;
+    padding: 3px 4px;
+    background: #fff;
 `
 
-const MyLeyendaError = styled.p`
-    font-size: 12px;
-    margin-bottom: 0;
-    color: ${colores.error};
-    display: none;
-    
-    ${props => props.pStyle === 'false' && css`
-        display: none;
-    `}
-    ${props => props.pStyle === 'false' && css`
-        display: block;
-    `}
-`
 
-/* =================================================== */
-/* =================================================== */
-/* =================================================== */
+const colores = {
+    borde: "#0075ff",
+    error: "#bb2929",
+    exito: "#1ed12d"
+}
+
 
 const Label = styled.label`
     display: block;
@@ -78,7 +117,7 @@ const Input = styled.input`
     border-radius: 3px;
     height: 45px;
     line-height: 45px;
-    padding: 0 10px 0 10px;
+    padding: 0 40px 0 10px;
     transition: .3s ease all;
     border: 3px solid transparent;
     outline: none;
@@ -184,17 +223,3 @@ const Formulario = styled.form`
         grid-template-columns: 1fr;
     }
 `
-export {
-    MensajeExito,
-    MessageError,
-    Formulario,
-    Label, 
-    GrupoInput,
-    Input,
-    LeyendaError ,
-    ContenedorBotonCentrado,
-    Boton,
-    MyLabel,
-    MyInput,
-    MyLeyendaError
-}

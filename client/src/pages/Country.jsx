@@ -1,8 +1,16 @@
 import React from 'react'
+import CountryDetail from "../components/CountryDetail"
+
 
  const Country = () => {
   return (
-    <div>Country</div>
+    <div>
+
+      <CountryDetail>
+        
+      </CountryDetail>
+
+    </div>
   )
 }
 
