@@ -8,35 +8,52 @@ const Form = () => {
     
     const [oText, setOtext] = useState({ current_data: '', is_valid: null });
     const [oDuration, setOduration] = useState({ current_data: '', is_valid: null });
-    const [formState, setFormState] = useState(null);  
+    const [formState, setFormState] = useState(null); 
+    const [aCountries, setACountries] = useState([]);
     
     const [oStates, setOstates] = useState(
         {
             text: { current_data: '', is_valid: null },
-            dificulty: { current_data: '', is_valid: null },
+            dificulty: { current_data: 0, is_valid: null },
             month: { current_data: '', is_valid: null },
             season: { current_data: '', is_valid: null }
         }
     )
     
     const mOnSubmit = (e) => {
-      e.preventDefault();
-  
-      if( oText.is_valid === "true"){
+        e.preventDefault();
+
+        console.log("XXXXX",aCountries)
+
+        console.log(oText.is_valid,oStates.dificulty.is_valid, oDuration.is_valid);
+
+      if( oText.is_valid === "true"
+            && oDuration.is_valid === "true"
+            && oStates.dificulty.is_valid === "true"
+            && aCountries.length > 0
+      ){
+          console.log("successfully")
           setFormState(true)
           e.target.reset();
+            setOtext({ current_data: '', is_valid: null })
+            setOduration({ current_data: '', is_valid: null })
+            setOstates(
+                {
+                    text: { current_data: '', is_valid: null },
+                    dificulty: { current_data: '', is_valid: null },
+                    month: { current_data: '', is_valid: null },
+                    season: { current_data: '', is_valid: null }
+                }
+            )
       } else {
-          setFormState(false)
+            setFormState(false)
       }
     }
     
     const mOnClickRbt = (e) =>{
         console.log(e.target.value); 
     };
-
-    const oStyle = {
-        textAlign: 'center',
-    }
+ 
   return (
       <div>
 
@@ -49,7 +66,7 @@ const Form = () => {
                 label= "Nombre"
                 placeholder = "Nombre"
                 name="n_name"
-                leyendaError="Solo se aceptan un minimo de 4 letras de la Aa-Zz / 0-9"
+                leyendaError="Solo se aceptan un minimo de 4 letras de la Aa-Zz"
                 expresionRegular={expretion.texto}
             /> 
             <InputRange
@@ -60,7 +77,7 @@ const Form = () => {
                 pType = "range"  
                 pMin = {0}
                 pMax = {5}
-                pErrorLeyend="ERROR!!!!!"
+                pErrorLeyend="La dificultad debe ser mayor que 0"
             />
             <InputGroup
                 pState = {oDuration}
@@ -85,14 +102,15 @@ const Form = () => {
                 ]}
             />
 
-            <InnSearch/>
+            <InnSearch
+                pPlaceHolder = "Buscar"
+                pLabel = "Agregar País a la Actividad"
+                pSACountries={aCountries}
+                pSetSAcountries={setACountries}
+            /> 
 
-            <div style={oStyle}>
-                PAISES SELECCIONADOS
-            </div>
-
-            { 
-                formState == false &&
+            {
+                formState === false &&
                 <MessageError>
                     <p>
                         <span>⚠️</span>´
@@ -101,8 +119,14 @@ const Form = () => {
                 </MessageError>
             }
             <ContenedorBotonCentrado>
-                <Boton type="submit">Enviar</Boton>
-                {formState && <MensajeExito>Formulario Enviado Exitosamente!</MensajeExito>}
+                <Boton 
+                    type="submit"
+                >Enviar</Boton>
+                {
+                formState && <MensajeExito>
+                                Formulario Enviado Exitosamente!
+                            </MensajeExito>
+                }
             </ContenedorBotonCentrado>
         </Formulario>
     </div> 

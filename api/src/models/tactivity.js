@@ -5,7 +5,10 @@ module.exports = (sequelize) =>{
     sequelize.define('Activity', {
         name: {
             type: DataTypes.STRING(45),
-            allowNull: false
+            allowNull: false,
+            validate: {
+                is :  /^[a-zA-Zs]{2,45}$/m
+            }
         },
         difficulty:  {
             type: DataTypes.INTEGER,

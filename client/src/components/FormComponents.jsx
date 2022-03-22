@@ -1,11 +1,12 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Input, GrupoInput, LeyendaError, Label } from './elements/elements'
 import styled from "styled-components";
+import {getAllCountries} from '../redux/action'
+import {useDispatch, useSelector} from 'react-redux'
 
 const InputGroup = (props) => {
-  
-    const {pMSecondPass, tipo, label, placeholder, name, leyendaError, expresionRegular, pState, pSetState , pMin ,pMax} = props
 
+    const {pMSecondPass, tipo, label, placeholder, name, leyendaError, expresionRegular, pState, pSetState , pMin ,pMax} = props
 
     const mOnChange = (e) => {
         pSetState({...pState, current_data: e.target.value});//{ current_data: '', valido: null }
@@ -25,7 +26,6 @@ const InputGroup = (props) => {
             pMSecondPass();
         }
     }
-
   return (
     <div>
 
@@ -83,7 +83,8 @@ const InputRange = (props) =>{
             <Label 
                 htmlFor={pName} 
                 pValidation={pOState.is_valid}
-            >{`${pLabel} ( ${pOState[pName]["current_data"]} )`}</Label>
+            >{`${pLabel} ( ${pOState[pName]["current_data"]} )`}
+            </Label>
 
             <InnRange
                 type={pType} 
@@ -91,6 +92,7 @@ const InputRange = (props) =>{
                 id={pName} 
                 value={pOState[pName]["current_data"]}
                 onChange={mOnChange}
+                onBlur={mOnChange}
                 name= {pName}
                 min= {pMin}
                 max= {pMax}
@@ -107,24 +109,135 @@ const InputRange = (props) =>{
 }
 
 
-const InnSearch = () => {
+const InnSearch = ({pPlaceHolder, pLabel, pSACountries, pSetSAcountries}) => {
+
+    const dispatch = useDispatch();
+    const aCountriesReducer = useSelector( state => state.allCountries)
+
+    const aAllCountryPersonalized = aCountriesReducer.map(( pI ) => {
+        return { kId: pI.id , kName: pI.name, kImg: pI.image }
+    })
+    console.log(aAllCountryPersonalized);
+
+    const [sInn, setSInn] = useState('');   
+    const [sArrayCountries, setSArrayCountries] = useState([]);
+    const [sFlagBoolean, setSFlagBoolean] = useState(
+        {
+            countryNotFound : false,
+            repeatedCountry : false
+        }
+    );
+    
+
+    const mSetInn = (e) => {
+        setSInn(e.target.value) // console.log(e.target.value)
+    }
+
+    useEffect(() => {
+        dispatch(getAllCountries())
+    },[dispatch]); 
+
+    const mAddCountry = () =>{
+        const oMatch = aAllCountryPersonalized.find(e => 
+            e.kId === sInn 
+        )
+        const bReplyCountry = sArrayCountries.find(e => e.kId === sInn);//console.log("??????",sArrayCountries)
+
+        if (!oMatch) {// console.log("NO EXISTE EL PAIS");
+            setSFlagBoolean({...sFlagBoolean, countryNotFound: true})
+        }
+        else if(bReplyCountry) {// console.log("DUPLICIDAD");
+            setSFlagBoolean({...sFlagBoolean, repeatedCountry: true})
+        }
+        else{
+            setSFlagBoolean({repeatedCountry: false, countryNotFound: false});// console.log(sFlagBoolean)
+            setSArrayCountries([...sArrayCountries, oMatch])
+            pSetSAcountries([...pSACountries, oMatch.kId])
+            setSInn('')//console.log("=>=>=>=>=>",sArrayCountries)
+        }       
+    }
+
+    const mDeleteCountry = (pIdentity) => {
+        const aFilterCountries = sArrayCountries.filter((pI)=>(
+            pI.kId !== pIdentity
+        ))
+        setSArrayCountries(aFilterCountries)
+        
+        const aSubmitFilter = pSACountries.filter((pI)=>(
+            pI !== pIdentity
+        ))
+        pSetSAcountries(aSubmitFilter)
+    }
+
   return (
       <ContainerDetalle>
-            <label htmlFor=""></label>
-            <input list="iPaises" className="123" type="text" placeholder=""/>
-            <details id="iPaises">
-                <option value="One">One</option>
-                <option value="Osc">Osc</option>
-                <option value="Oness">Oness</option>
-                <option value="Two">TWo</option>
-                <option value="Three">Three</option>z|
-            </details>
-            <button type="button" >ADD</button>
+            <label htmlFor="y">{pLabel}</label>
+            <div className="inputSearch">
+                <input 
+                    list="x" 
+                    id="y" 
+                    className="123" 
+                    type="search" 
+                    value={sInn} 
+                    onChange={mSetInn}
+                    placeholder={pPlaceHolder}
+                />
+                <datalist id="x">
+                    {
+                        aAllCountryPersonalized.map((pI,i) => {
+                            return <option key={i} value={pI.kId}>{pI.kName}</option>
+                        })
+                    }
+                </datalist>
+                <button type="button" onClick={mAddCountry} >ADD</button>
+            </div>
+            {
+                sFlagBoolean.countryNotFound ? <span>PAIS NO ENCONTRADO</span>
+                : sFlagBoolean.repeatedCountry && <span>DUPLICIDAD DE PAIS</span>
+            }
+            <DivResoultCountries>
+                {
+                sArrayCountries.map((pI, i) => (
+                    <figure key={i}>
+                        {/* <h6>{pI.kName}</h6> */}
+                        <button 
+                            className='btn-delete_figure' type='button' 
+                            onClick={() => (mDeleteCountry(pI.kId))}    
+                        >X</button>
+                        <img src={pI.kImg} alt="" />
+                    </figure>
+                    ))
+                }
+            </DivResoultCountries>
       </ContainerDetalle>
   )
 }
 
 export {InputGroup, InputRange, InnSearch}
+
+const DivResoultCountries = styled.div`
+    display: flex;
+    figure{
+        width: 60px;
+        height: 60px; 
+        margin: 9px;
+        img{
+            height: 100%;
+            width: 100%;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.7));
+            border-radius: 50%; 
+        }
+        .btn-delete_figure{
+            background-color: transparent;
+            outline: none;
+            border: none;
+            position: relative;
+            z-index: 1;
+            left: 45px;
+            border-radius: 50%;
+        }
+    }
+` 
 
 const InnRange = styled.input`
     border: none;
@@ -134,17 +247,25 @@ const InnRange = styled.input`
 
 const ContainerDetalle = styled.div`
     display: flex;
+    flex-direction: column;
+    label{
+        margin-bottom: 9px;
+        margin-left: 9px;
+    }
+    .inputSearch{
+        display: flex;
+    }
     input{
         width: 70%;
         height: 45px;
         border: 1px solid #fff;
         border-radius: 3px 0 0 3px;
-        padding: 0 40px 0 10px;
+        padding: 0 10px 0 10px;
         outline: none;
     }
     details{
-        position: absolute;
-        display: none;
+         display: none;
+         position: absolute;
     }
     button{
         width: 30%;
@@ -153,5 +274,9 @@ const ContainerDetalle = styled.div`
         border: none;
         outline: none;
         border-radius: 0 3px 3px 0;
+        cursor: pointer;
+        &:hover{
+            box-shadow: inset -2px -1px 5px rgb(0 0 0 / 50%);
+        }
     }
 `

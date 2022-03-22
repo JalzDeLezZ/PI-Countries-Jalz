@@ -1,18 +1,27 @@
-import React from 'react'
-// import {Selection} from './SelectionElement'
-// import {RButtonGroup} from './elements/elementsTwo'
-// import {Button} from './elements/generals'
-import '../styles/components/ContentCards.scss'
+import React,{useEffect} from 'react'
+import {Selection} from '../SelectionElement'
+import {RButtonGroup} from '../elements/elementsTwo'
+import {Button} from '../elements/generals'
+import '../../styles/components/ContentCards.scss'
 
-// import { Link } from 'react-router-dom';
-// import {getActivities, filterCountriesByContinent, orderAscOrDsc} from '../redux/action'
-// import {useDispatch, useSelector} from 'react-redux'
-import ContainerCards from './ContainerCards'
-import PartFilters from './BodyHome/PartFilters'
+import { Link } from 'react-router-dom';
+import {getActivities, filterCountriesByContinent, orderAscOrDsc} from '../../redux/action'
+import {useDispatch, useSelector} from 'react-redux'
 
-const ContentCards = () => {
-    
-  /* const dispatch = useDispatch();
+const oStyleSelect = {
+  color: "#fff",
+  margin: "5px",
+  outline: "none",
+  border: "1px solid #fff",
+  borderRadius: "7px",
+  width: "140px",
+  fontSize: "0.6em",
+  padding: "3px 4px",
+  backgroundColor: "#00000070"}
+
+const PartFilters = () => {
+
+  const dispatch = useDispatch();
   const aActivities = useSelector( state => state.aActitivities)
  
   const mOnClickRbt = (e) =>{
@@ -27,12 +36,10 @@ const ContentCards = () => {
    
   useEffect(() => {
     dispatch(getActivities())
-  },[dispatch]); */
-  
+  },[dispatch]);
+
   return (
-    <main className = "cMain-body">
-      <PartFilters/>
-        {/* <section className = "Home_body-head">
+    <section className = "Home_body-head">
           <div className= "hbh1-filters">
               <Selection
                 pName = "n_opciones" 
@@ -71,28 +78,8 @@ const ContentCards = () => {
           
           <Link to = "/tactivity"><Button>Create Activity</Button></Link>
           
-        </section> */}
-
-        <ContainerCards/> 
-      </main>
-  )  
+        </section>
+  )
 }
 
-export default ContentCards
-
-/* 
-
-        <section className="home_containerCards">
-            {countries && countries.map(pCountry =>{
-            return (
-              <Card 
-                pImagen = {pCountry.image}
-                pNombre = {pCountry.name}
-                pContinente = {pCountry.continent}
-                pId = {pCountry.id}
-                key = {pCountry.id}
-              />
-            )})
-          }
-        </section>
-*/
+export default PartFilters

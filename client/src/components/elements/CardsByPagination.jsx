@@ -1,6 +1,6 @@
 import React from 'react'
 import Card from '../Card';
-import styled,{css} from "styled-components";
+import styled from "styled-components";
 
 const CardsByPagination = (props) => {
     const {pAPieceOfTotalCards, pBoleanLoading} = props;

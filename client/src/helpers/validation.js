@@ -7,7 +7,7 @@ export const  isEmail = (value) => {
 } */
 
 export const expretion = {
-    text : (inn) => {return !/[^A-Za-z\s\,]/.test(inn)},
+    // text : (inn) => {return !/[^A-Za-z\s\,]/.test(inn)},
     texto: /^[a-zA-Zs]{2,45}$/m,
     usuario: /^[a-zA-Z0-9_-]{4,16}$/, // Letras, numeros, guion y guion_bajo
     nombre: /^[a-zA-ZÀ-ÿ\s]{1,40}$/, // Letras y espacios, pueden llevar acentos.

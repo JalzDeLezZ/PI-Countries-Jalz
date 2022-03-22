@@ -6,18 +6,18 @@ const Card = (props) => {
     const {pImagen, pNombre, pContinente, pId} = props
 
     return (
-        <target className="component-card">
+        <div className="component-card">
             
             <figure className="card-figure">
                 <img src={pImagen} alt={pNombre}/>
                 <h6>{pId}</h6>
             </figure>
             
-            <assets>
+            <div>
                 <Link to={`/country/${pId}`}><h3>{pNombre}</h3></Link>
                 <h5>{pContinente}</h5>
-            </assets>
-        </target>
+            </div>
+        </div>
     )
 }
 
