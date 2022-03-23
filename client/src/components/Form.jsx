@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import {MensajeExito,MessageError,Formulario, ContenedorBotonCentrado, Boton} from './elements/elements';
-import {InputGroup, InputRange, InnSearch} from './FormComponents';
+import {InputGroup, InputRange, InnSearch} from './Form/FormComponents';
 import {expretion} from '../helpers/validation'
 import { CSelect } from './elements/elementsTwo';
 // import Test from './Test.jsx';

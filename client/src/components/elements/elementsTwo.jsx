@@ -11,7 +11,7 @@ const RButtonGroup = (props) => {
             type="radio" id={pId} 
             onClick={pMOnClickRbt}
             value={pValue} 
-            name={pName} 
+            name={pName}
         />
     </ContChecks>
   )

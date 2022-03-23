@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const { Country } = require('../db')
+const { Country, Activity } = require('../db')
 //GET/countries
 exports.list = async (req, res) => {
     const {name} = req.query;
@@ -63,5 +63,20 @@ exports.listById = async (req, res) => {
         res.json( country ? country : "No hay País con dicho ID  bby");
     } catch (e) {
         res.send(e);
+    }
+}
+
+exports.allCountriesXActivities = async (req, res) => {
+    try {
+        let allDBCountry = await Country.findAll({
+            include: Activity
+        });
+
+        return res.json(allDBCountry)
+        
+    }
+    catch (error) {
+        console.error(error)
+        res.status(500).send(error);
     }
 }

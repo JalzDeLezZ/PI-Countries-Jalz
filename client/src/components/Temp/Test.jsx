@@ -1,10 +1,10 @@
 import React,{useState} from 'react'
 
-import {MensajeExito,MessageError,Formulario, ContenedorBotonCentrado, Boton} from './elements/TestElements';
+import {MensajeExito,MessageError,Formulario, ContenedorBotonCentrado, Boton} from '../elements/TestElements';
 import {InputGroup, InputRange, InnSearch} from './TestFunction';
 // import {InnGroup} from './TestFunction';
-import {expretion} from '../helpers/validation'
-import { CSelect } from './elements/TestElements';
+import {expretion} from '../../helpers/validation'
+import { CSelect } from '../elements/TestElements';
 
 const Test = () => {
     const [oText, setOtext] = useState({ current_data: '', is_valid: null });

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {getCountryByName} from '../redux/action'
+import {getCountryByName} from '../../redux/action'
 import {useDispatch} from 'react-redux'
 
 

@@ -1,21 +1,31 @@
-import { GET_ACTIVITIES,GET_ALL_COUNTRIES, GET_COUNTRI_BY_NAME, GET_COUNTRI_BY_ID, FILTER_BY_CONTINENT, ORDER_ASC_OR_DSC } from "../action";
+import { 
+    GET_ACTIVITIES,
+    GET_ALL_COUNTRIES, 
+    GET_COUNTRI_BY_NAME, 
+    GET_COUNTRI_BY_ID, 
+    FILTER_BY_CONTINENT,
+    FILTER_GENERAL,
+    FILTER_BY_ACTIVITY
+} from "../action";
 
 const initialState = {
     allCountries: [],
+    allCountryXActiv: [],
     countries: [],
     oCountry: {},
     aActitivities: []
 };
 
+let aTemp;
+
 const rootReducer = (state = initialState, action) => {
 
     const {allCountries, countries} = state
-    const {type, payload, order, filter_continent} = action;    
+    const {type, payload,   filter_continent,  slctFilt, rbtFilt, filter_activity} = action;
 
     switch(type) {
         
         case GET_ALL_COUNTRIES:
-            
             return {
                 ...state,
                 allCountries: payload,
@@ -46,36 +56,83 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 countries: continentFiltered
             }
+        case FILTER_BY_ACTIVITY:
+            console.log(filter_activity)
+            console.log(payload)
 
-        case ORDER_ASC_OR_DSC:
-            let aTemp;
-            switch (order) { 
-                case "ASC":
-                aTemp = countries.sort( ( a , b ) => {
-                    if (a.name.toLowerCase() < b.name.toLowerCase()) return -1
-                    if (a.name.toLowerCase() > b.name.toLowerCase()) return 1
-                    return 0
-                });
-                console.log(aTemp)
+           /*  const arrayTemp =  payload.map(pI => {
+                pI.Activities
+            }) */
 
-                return { 
-                    ...state,
-                    countries: [...aTemp]
-                }
+            return {
+                ...state,
+                allCountryXActiv: payload
+            }
+        case FILTER_GENERAL:
 
-                case "DSC":
-                    aTemp= countries.sort( ( a , b ) => {
-                        if (a.name.toLowerCase() > b.name.toLowerCase()) return -1
-                        if (a.name.toLowerCase() < b.name.toLowerCase()) return 1
+            if ((rbtFilt && !slctFilt) || (slctFilt === 'alphabet')) {
+                switch (rbtFilt) { 
+                    case "ASC":
+                    aTemp = countries.sort( ( a , b ) => {
+                        if (a.name.toLowerCase() < b.name.toLowerCase()) return -1
+                        if (a.name.toLowerCase() > b.name.toLowerCase()) return 1
                         return 0
                     });
                     return { 
                         ...state,
                         countries: [...aTemp]
                     }
-                
-                default: return {...state}
-                }
+    
+                    case "DSC": 
+                        aTemp= countries.sort( ( a , b ) => {
+                            if (a.name.toLowerCase() > b.name.toLowerCase()) return -1
+                            if (a.name.toLowerCase() < b.name.toLowerCase()) return 1
+                            return 0
+                        });
+                        return { 
+                            ...state,
+                            countries: [...aTemp]
+                        }
+                    
+                    default: return {...state}
+                    }
+            }
+            else if ((slctFilt  === 'population') && rbtFilt){
+                    if(!rbtFilt || rbtFilt === "ASC"){
+                        aTemp = countries.sort((a,b) => {
+                            if(a.poblacion < b.poblacion)
+                                return -1
+                            if (a.poblacion > b.poblacion) {
+                                return 1
+                            }
+                            return 0
+                        })
+                        return {
+                            ...state,
+                            countries: [...aTemp]
+                        } 
+                    }
+                    else if(rbtFilt === "DSC"){
+                        aTemp = countries.sort((a,b) => {
+                            if(a.poblacion > b.poblacion)
+                                return -1
+                            if (a.poblacion < b.poblacion) {
+                                return 1
+                            }
+                            return 0
+                        })
+                        return {
+                            ...state,
+                            countries: [...aTemp]
+                        } 
+                    }
+                    else{
+                        return {...state}
+                    }
+            }
+            else{
+                return {...state}
+            } 
         default: return {...state}
     };
 };

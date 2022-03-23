@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import {Input, GrupoInput, LeyendaError, Label } from './elements/elements'
-import styled from "styled-components";
-import {getAllCountries} from '../redux/action'
 import {useDispatch, useSelector} from 'react-redux'
+import styled from "styled-components";
+
+import {Input, GrupoInput, LeyendaError, Label } from '../elements/elements'
+import {getAllCountries} from '../../redux/action'
 
 const InputGroup = (props) => {
 

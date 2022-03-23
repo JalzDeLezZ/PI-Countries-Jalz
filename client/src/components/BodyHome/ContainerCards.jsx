@@ -1,8 +1,9 @@
 import React,{useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCountries } from '../redux/action';
-import CardsByPagination from './elements/CardsByPagination';
-import Pagination from './elements/pagination';
+
+import { getAllCountries } from '../../redux/action';
+import CardsByPagination from '../elements/CardsByPagination';
+import Pagination from '../elements/pagination';
 
 const ContainerCards = () => {
 
