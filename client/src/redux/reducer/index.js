@@ -60,13 +60,18 @@ const rootReducer = (state = initialState, action) => {
             console.log(filter_activity)
             console.log(payload)
 
-           /*  const arrayTemp =  payload.map(pI => {
-                pI.Activities
-            }) */
+            const aTemp2 = payload.filter(pI => pI.Activities.length > 0)
+            console.log(aTemp2)
+            
+            const aTemp3 = aTemp2.filter(
+                pI => pI.Activities.filter(
+                    pJ => pJ.name===filter_activity).length
+                )
+            console.log(aTemp3)
 
-            return {
+             return {
                 ...state,
-                allCountryXActiv: payload
+                countries: aTemp3
             }
         case FILTER_GENERAL:
 

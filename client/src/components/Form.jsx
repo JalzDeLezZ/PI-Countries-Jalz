@@ -3,8 +3,12 @@ import {MensajeExito,MessageError,Formulario, ContenedorBotonCentrado, Boton} fr
 import {InputGroup, InputRange, InnSearch} from './Form/FormComponents';
 import {expretion} from '../helpers/validation'
 import { CSelect } from './elements/elementsTwo';
+import { useDispatch } from 'react-redux';
+import { postActivitiesXcountries } from '../redux/action';
 // import Test from './Test.jsx';
 const Form = () => {
+          
+    const dispatch = useDispatch()
     
     const [oText, setOtext] = useState({ current_data: '', is_valid: null });
     const [oDuration, setOduration] = useState({ current_data: '', is_valid: null });
@@ -22,7 +26,7 @@ const Form = () => {
     
     const mOnSubmit = (e) => {
         e.preventDefault();
-
+        let oPost = {}
         console.log("XXXXX",aCountries)
 
         console.log(oText.is_valid,oStates.dificulty.is_valid, oDuration.is_valid);
@@ -32,8 +36,19 @@ const Form = () => {
             && oStates.dificulty.is_valid === "true"
             && aCountries.length > 0
       ){
-          console.log("successfully")
+          console.log("successfully");console.log("0A00AA0A0AA",oStates)
           setFormState(true)
+
+          oPost = {
+            "name" : oText.current_data,
+            "difficulty" : oStates.dificulty.current_data, 
+            "duration" : oDuration.current_data,
+            "season" : oStates.season.current_data, 
+            "countries" : aCountries
+          }
+
+          dispatch(postActivitiesXcountries(oPost))
+
           e.target.reset();
             setOtext({ current_data: '', is_valid: null })
             setOduration({ current_data: '', is_valid: null })
@@ -45,13 +60,21 @@ const Form = () => {
                     season: { current_data: '', is_valid: null }
                 }
             )
+          
       } else {
             setFormState(false)
       }
     }
     
-    const mOnClickRbt = (e) =>{
-        console.log(e.target.value); 
+    const mChangeSlc = (e) =>{
+        const {value} = e.target //console.log(e.target.value); 
+        console.log("→→→",oStates)
+        setOstates(
+            {
+                ...oStates,
+                season: { current_data: value, is_valid: true }
+            }
+        )
     };
  
   return (
@@ -93,7 +116,7 @@ const Form = () => {
             />
             <CSelect
                 pName = "n_opciones" 
-                pMUpdateState={mOnClickRbt}
+                pMUpdateState={mChangeSlc}
                 pAOptions={[
                     {value:"verano", texto: "verano"},
                     {value:"primavera", texto: "primavera"},

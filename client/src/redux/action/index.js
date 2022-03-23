@@ -56,11 +56,9 @@ export const getActivities = (id) => {
 export const postActivitiesXcountries = (dataForm) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post(`http://localhost:3001/activity`)
-      return dispatch({
-        type: POST_ACTIVITIES_X_COUNTRIES,
-        payload: response.data
-      })
+      console.log("ACTION- DATAFORM",dataForm)
+      const response = await axios.post(`http://localhost:3001/activity/1`,dataForm)
+      return response
     } catch (error) { console.error(error) }
   }
 }
